@@ -44,7 +44,7 @@ class StorageExportCommand extends Command
         DataHelper $helper
     ) {
         $this->state = $state;
-        $this->coreFileStorage = $coreFileStorageFactory->create();
+        $this->coreFileStorage = $coreFileStorageFactory;
         $this->helper = $helper;
 
         parent::__construct();
@@ -66,6 +66,7 @@ class StorageExportCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->coreFileStorage = $this->coreFileStorage->create();
         return $this->state->emulateAreaCode(Area::AREA_ADMINHTML, function () use ($output) {
             $errors = $this->validate();
 
