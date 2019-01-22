@@ -51,7 +51,7 @@ class StorageEnableCommand extends Command
         $this->state = $state;
         $this->configFactory = $configFactory;
         $this->helper = $helper;
-        $this->storage = $coreFileStorageFactory->create();
+        $this->storage = $coreFileStorageFactory;
 
         parent::__construct();
     }
@@ -111,7 +111,7 @@ class StorageEnableCommand extends Command
                 return 1;
             }
 
-            if ($this->storage->getCurrentStorageCode() === \Thai\S3\Model\MediaStorage\File\Storage::STORAGE_MEDIA_S3) {
+            if ($this->storage->create()->getCurrentStorageCode() === \Thai\S3\Model\MediaStorage\File\Storage::STORAGE_MEDIA_S3) {
                 $output->writeln('<error>You are already using S3 as your media file storage backend!</error>');
 
                 return 1;
